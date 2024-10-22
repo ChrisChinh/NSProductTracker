@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='dashboard.js')}}"></script>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search...">
+        <button onclick="search()" id="search">Search</button>
+        <button onclick="reset()" id="reset">Reset</button>
+        <button onclick="logout()" id="logout">Logout</button>
+        <button onclick="edit()" id="edit">Edit</button>
+    </div>
+    <table id="resultsTable">
+        <thead>
+            <tr id="headerRow"></tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Results will be inserted here -->
+             <tr id="dataRow"></tr>
+        </tbody>
+    </table>
+</body>
+</html>

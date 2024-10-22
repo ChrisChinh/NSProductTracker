@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+        }
+        .container h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        /* Align checkboxes and labels horizontally */
+        .checkbox-group {
+            display: flex;
+            flex-direction: row;
+            align-items: right;
+            justify-content: space-evenly;
+            white-space: nowrap;
+            margin-bottom: 5px;
+        }
+        .checkbox-group label {
+            text-align: center;
+            flex-grow: 1;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='edit.js')}}"></script></head>
+<body>
+    <div class="container">
+        <h2>Edit Product</h2>
+        <div class="form-group" style="display: flex; align-items: center;">
+            <label for="serial-number" style="flex-grow: 1; white-space: nowrap; margin-right: 10px;">Serial Number</label>
+            <input type="text" id="serial-number" name="serial-number" style="flex-grow: 2; margin-right: 10px;">
+            <button type="button" style="flex-grow: 1;" id="search-button">Search</button>
+        </div>
+        <form>
+            <div class="form-group">
+                <label for="part-number">Part Number</label>
+                <input type="text" id="part-number" name="part-number" required>
+            </div>
+            <div class="form-group">
+                <label for="design-version">Design Version</label>
+                <input type="text" id="design-version" name="design-version" required>
+            </div>
+            <div class="form-group">
+                <label><strong>Success Criteria</strong></label>
+                <div class="checkbox-group">
+                    <label for="manufacture-success">Manufacture Success</label>
+                    <input type="checkbox" id="manufacture-success" name="manufacture-success">
+                </div>
+                <div class="checkbox-group">
+                    <label for="performance-success">Performance Success</label>
+                    <input type="checkbox" id="performance-success" name="success-criteria" value="performance-success">
+                </div>
+                <div class="checkbox-group">
+                    <label for="customer-success">Customer Success</label>
+                    <input type="checkbox" id="customer-success" name="success-criteria" value="customer-success">
+                </div>
+            <div class="form-group">
+                <label for="purchase-order"><strong>Purchase Order</strong></label>
+                <div style="display: flex; align-items: center;">
+                    <input type="text" id="purchase-order" name="purchase-order" placeholder="No file selected" readonly style="flex-grow: 2; margin-right: 10px; background-color: #e9ecef;">
+                    <button type="button" style="flex-grow: 1;">Select File</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="delivery-records"><strong>Delivery Records</strong></label>
+                <div style="display: flex; align-items: center;">
+                    <input type="text" id="delivery-records" name="delivery-records" placeholder="No file selected" readonly style="flex-grow: 2; margin-right: 10px; background-color: #e9ecef;">
+                    <button type="button" style="flex-grow: 1;">Select File</button>
+                </div>
+            </div>
+            <div class="form-group"></div>
+                <label><strong>Frequencies</strong></label>
+                <div class="form-group">
+                    <label for="critical-frequency">Critical Frequency</label>
+                    <input type="text" id="critical-frequency" name="critical-frequency" required>
+                </div>
+                <div class="form-group">
+                    <label for="bandwidth">Bandwidth</label>
+                    <input type="text" id="bandwidth" name="bandwidth" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="feedback"><strong>Feedback</strong></label>
+                <textarea id="feedback" name="feedback" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <button type="button" id="submit-button">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

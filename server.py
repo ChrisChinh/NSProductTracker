@@ -145,7 +145,8 @@ class Server:
             self.app.logger.warning(data)
             username = data['username']
             password = data['password']
-            if self.userdb.get_user(username) == password:
+            true_password = self.userdb.get_user(username)
+            if true_password is not None and true_password == password:
                 if username in self.auth_tokens:
                     return flask.jsonify({'success': True, 'token': self.auth_tokens[username][0]})
                 token = secrets.token_urlsafe(TOKEN_LENGTH)
@@ -157,8 +158,8 @@ class Server:
             return flask.jsonify({'error': 'Invalid JSON'})
 
     def run(self):
-        # self.app.run(host='0.0.0.0', port=5000)
-        self.app.run()
+        self.app.run(host='0.0.0.0', port=5000)
+        # self.app.run()
 
     def add_route(self, route, func, methods=['POST', 'GET']):
         self.app.add_url_rule(route, view_func=func, methods=methods)

@@ -1,7 +1,7 @@
 import mysql.connector
 import json
 import secrets
-PASSWORD = 'googleple'
+PASSWORD = ''
 DATABASE = 'products'
 SERIAL_LENGTH = 10
 AUTOINCREMENT_INDEX = 10

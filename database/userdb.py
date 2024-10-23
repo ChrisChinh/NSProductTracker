@@ -1,5 +1,5 @@
 import mysql.connector
-PASSWORD = 'googleple'
+PASSWORD = ''
 DATABASE = 'products'
 CREATE_TABLE = """
 CREATE TABLE users (
@@ -43,8 +43,7 @@ class UserDB:
         """
         cursor = self.database.cursor()
         try:
-            cursor.execute(f'INSERT INTO users (Username, Password, Admin) VALUES ("{
-                           username}", "{password}", {admin})')
+            cursor.execute(f'INSERT INTO users (Username, Password, Admin) VALUES ("{username}", "{password}", {admin})')
         except:
             print('Error adding user')
             return False

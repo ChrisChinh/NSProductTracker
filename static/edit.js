@@ -1,6 +1,6 @@
 //Globals
-let lookup_url = "http://localhost:5000/lookup";
-let edit_url = "http://localhost:5000/edit_item";
+let lookup_url = "http://products.local:5000/lookup";
+let edit_url = "http://products.local:5000/edit_item";
 
 
 function checkKeys(obj) {

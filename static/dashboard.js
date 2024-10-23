@@ -1,6 +1,6 @@
 // Global variables
-let url = "http://localhost:5000/";
-let lookup_url = "http://localhost:5000/lookup";
+let url = "http://products.local:5000/";
+let lookup_url = "http://products.local:5000/lookup";
 let existingHeaders = [];
 let imageWidth = "200";
 

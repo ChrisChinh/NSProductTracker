@@ -26,7 +26,7 @@ $(document).ready(function() {
         };
 
         // Fetch the URL from the form's action attribute
-        var url = "localho.st:5000/login"; //$(this).attr('action') + '/login';
+        var url = "http://products.local:5000/login"; //$(this).attr('action') + '/login';
         console.log('URL:', url);
         // Send the data using POST method
         function handleData(response) {
@@ -41,7 +41,7 @@ $(document).ready(function() {
                 handleError(response);
             }
         }
-        fetch('http://localhost:5000/login', {
+        fetch(url, {
             method:'POST',
             body: JSON.stringify(data),
             headers: {

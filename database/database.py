@@ -1,7 +1,7 @@
 import mysql.connector
 import json
 import secrets
-PASSWORD = ''
+PASSWORD = 'password'
 DATABASE = 'products'
 SERIAL_LENGTH = 10
 AUTOINCREMENT_INDEX = 10
@@ -55,7 +55,7 @@ class Database:
         Connects to a SQL database
         """
         try:
-            self.database = mysql.connector.connect(host='localhost', user='root', password=PASSWORD, database=DATABASE)
+            self.database = mysql.connector.connect(host='localhost', user='server', password=PASSWORD, database=DATABASE)
         except:
             raise Exception('Could not connect to database')
 

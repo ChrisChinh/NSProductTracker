@@ -1,5 +1,5 @@
 import mysql.connector
-PASSWORD = ''
+PASSWORD = 'password'
 DATABASE = 'products'
 CREATE_TABLE = """
 CREATE TABLE users (
@@ -20,7 +20,7 @@ class UserDB:
         Connects to a SQL database
         """
         try:
-            self.database = mysql.connector.connect(host='localhost', user='root', password=PASSWORD, database=DATABASE)
+            self.database = mysql.connector.connect(host='localhost', password=PASSWORD, user='server', database=DATABASE)
         except:
             raise Exception('Could not connect to database')
 

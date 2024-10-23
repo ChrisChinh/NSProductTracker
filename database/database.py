@@ -21,6 +21,7 @@ CREATE TABLE products (
   CustomerSuccess BOOLEAN DEFAULT FALSE,
   CriticalFrequency DECIMAL(10, 4) DEFAULT 0,
   Bandwidth DECIMAL(10, 4) DEFAULT 0
+  OtherFiles TEXT,
 );"""
 REQUIRED_KEYS = ['SerialNumber', 'PartNumber', 'DesignVersion', 'CreationParameters', 'PurchaseOrder', 'DeliveryRecords',
                  'Feedback', 'Images', 'MFGSuccess', 'PerfSuccess', 'CustomerSuccess', 'CriticalFrequency', 'Bandwidth']

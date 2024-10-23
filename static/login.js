@@ -1,3 +1,16 @@
+
+// Handles errors from logging in
+function handleError(error) {
+    // Add a red dialog box at the top of the page with the error message
+    var errorBox = `
+        <div style="background-color: red; color: white; padding: 10px; margin-bottom: 10px;">
+            <strong>Error:</strong> ${error.error}
+        </div>
+    `;
+    // Prepend the error box to the body
+    $('body').prepend(errorBox);
+}
+
 $(document).ready(function() {
     // Handler for form submission with id 'myForm'
     $('#myForm').submit(function(event) {
@@ -25,7 +38,7 @@ $(document).ready(function() {
                 window.location.href = '/dashboard';
             }
             else {
-                alert('Invalid username or password');
+                handleError(response);
             }
         }
         fetch('http://localhost:5000/login', {
@@ -36,7 +49,7 @@ $(document).ready(function() {
             }
         }).then(response => response.json())
         .then(data => handleData(data))
-        .catch(error => console.error('Error:', error));
+        .catch(error => alert(error));
 
     });
 });

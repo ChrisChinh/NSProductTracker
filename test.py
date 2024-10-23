@@ -22,6 +22,7 @@ def test_db():
 def test_userdb():
     userdb = UserDB()
     userdb.connect()
+    userdb.create_table()
     user = 'test_user'
     password = 'test_password'
     assert userdb.add_user(user, password)

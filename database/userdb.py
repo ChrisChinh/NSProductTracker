@@ -27,6 +27,7 @@ class UserDB:
     def get_user(self, username: str) -> str:
         """
         Returns the password associated with the username
+        Returns NONE if the user cannot be found
         """
         cursor = self.database.cursor()
         try:
@@ -41,8 +42,14 @@ class UserDB:
         Adds a user to the database
         """
         cursor = self.database.cursor()
-        cursor.execute(f'INSERT INTO users (Username, Password, Admin) VALUES ("{username}", "{password}", {admin})')
+        try:
+            cursor.execute(f'INSERT INTO users (Username, Password, Admin) VALUES ("{
+                           username}", "{password}", {admin})')
+        except:
+            print('Error adding user')
+            return False
         self.database.commit()
+        return True
 
     def create_table(self):
         """

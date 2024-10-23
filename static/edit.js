@@ -1,7 +1,6 @@
 //Globals
 let lookup_url = "http://localhost:5000/lookup";
 let edit_url = "http://localhost:5000/edit_item";
-let should_logout = true;
 
 
 function checkKeys(obj) {
@@ -117,13 +116,6 @@ $(document).ready(function() {
     $('#submit-button').click(function() {
         submitData();
     });
-});
-
-// Clear local storage when the user logs out
-$(window).on('beforeunload', function() {
-    if (should_logout) {
-        localStorage.clear();
-    }
 });
 
 

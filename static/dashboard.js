@@ -3,7 +3,6 @@ let url = "http://localhost:5000/";
 let lookup_url = "http://localhost:5000/lookup";
 let existingHeaders = [];
 let imageWidth = "200";
-let should_logout = true;
 
 $(document).ready(function() {
     // Ensure that the user is logged in
@@ -15,15 +14,7 @@ $(document).ready(function() {
     }
 });
 
-// Clear local storage when the user logs out
-$(window).on('beforeunload', function() {
-    if (should_logout) {
-        localStorage.clear();
-    }
-});
-
 function edit() {
-    should_logout = false;
     window.location.href = '/edit';
 }
 

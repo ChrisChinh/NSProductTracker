@@ -1,13 +1,13 @@
 from flask import Flask, request
-import json
 from flask_cors import CORS
 import flask
 import secrets
 from datetime import datetime, timedelta
-
+from apscheduler.schedulers.background import BackgroundScheduler
 from database.database import Database
+from database.userdb import UserDB
 
-TOKEN_LENGTH = 16
+TOKEN_LENGTH = 32  # Length of the token to be generated
 TOKEN_EXPIRY_LENGTH = 60  # Number of minutes to allow users to stay logged in
 
 
@@ -16,12 +16,8 @@ class Server:
         self.app = Flask(__name__)
         CORS(self.app, resources={r"/login": {"origins": "*"}})
 
-        # DEBUG
-        self.usernames = ['admin', 'user']
-        self.passwords = ['admin', 'user']
-        # END DEBUG
-
         # PRODUCTION
+        self.userdb = UserDB()
         self.database = Database()
         self.index = lambda: flask.render_template('login.html')
 
@@ -38,6 +34,11 @@ class Server:
         self.add_route('/dashboard', dashboard)
         self.add_route('/edit', self.edit)
         self.add_route('/edit_item', self.edit_item, methods=['POST'])
+
+        # For clearing expired auth tokens
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(self.remove_expired_tokens, 'interval', minutes=1)
+        scheduler.start()
 
     def edit(self):
         return flask.render_template('edit.html')
@@ -88,17 +89,17 @@ class Server:
         # Check to ensure serial is valid
         serial = data['serial']
         if not self.database.serial_exists(serial):
-            return flask.jsonify({'error': 'Invalid serial'})
+            return flask.jsonify({'error': 'Invalid serial', "success": False})
 
         # Check to ensure username is valid
         username = data['username']
-        if username not in self.usernames:
-            return flask.jsonify({'error': 'Invalid username'})
+        if self.userdb.get_user(username) is None:
+            return flask.jsonify({'error': 'Invalid username', "success": False})
 
         # Check to ensure token is valid
         token = data['token']
         if not self.check_auth(token, username):
-            return flask.jsonify({'error': 'Invalid token'})
+            return flask.jsonify({'error': 'Invalid token', "success": False})
 
         return None
 
@@ -144,9 +145,9 @@ class Server:
             self.app.logger.warning(data)
             username = data['username']
             password = data['password']
-            if username in self.usernames and password in self.passwords:
-                if username in self.auth_tokens.values():
-                    self.auth_tokens.pop(username)
+            if self.userdb.get_user(username) == password:
+                if username in self.auth_tokens:
+                    return flask.jsonify({'success': True, 'token': self.auth_tokens[username][0]})
                 token = secrets.token_urlsafe(TOKEN_LENGTH)
                 self.auth_tokens[username] = (token, datetime.now())
                 return flask.jsonify({'success': True, 'token': token})
